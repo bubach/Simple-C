@@ -1,0 +1,173 @@
+THIS IS THE ORIGINAL HISTORY FILE, MY CHANGES ARE AT THE END OF THIS
+------------------------------------------------------------------------------
+Startpoint: Small C v2.2 rev 117.
+
+15/Apr/98 [All files]
+ Started to port Small C to NT.  First step was to make it compileable by
+ Visual C++ which required come changes in Small C's own <stdio.h> as
+ well as calls to  'poll ()', 'iscons ()', 'getarg ()'.
+ Changed trailer etc in CC4.C to give code for 386 and flat memory model.
+ Made makefile and a new directory structure to separate source from make and
+ executable.
+ (And yes, VisualC 5.0 compiles it to an executable, but the resulting
+ assembler is not valid code for the flat memory model)
+
+16/Apr/98
+  Added CC5.C to print out debug info for the pcode in asm-listing.  Fix in
+  CC2.C to also insert source-code in asm-listing.  Purified and fixed some
+  uninitilized reads.  Still many assumptions that 'int' is 16bit.
+  Must(?) make a 16bit version also, so I can compare.
+
+17/Apr/98
+  Fixed a bug regarding uninitialized variables that gave illegal code, added 
+  function null_is in CC3.C.
+
+19/Apr/98
+  Revised index-operations in asm to 32 bits, added <o> in outcode() and added
+  function offset() in CC4.C.  Can now assemble and link a 32bit application although
+  it crashes when run.  Cannot have it all ...
+
+20/Apr/98
+  Changed primary and secondary register to work on 32 bits.  Pointer is also
+  32 bit.  Leaved support for a 16bit short.  Now generates code that works
+  if the C-code is 'nice'.  As I am now using Microsofts asm, linker and library
+  I cannot call library-functions such as 'printf' since Smallc 'reverses' the 
+  order of arguments in function calls.
+
+22/Apr/98
+  Changed calls to abort() into exit(). Decided not to reverse parameter order,
+  instead will try to make an own CLIB.  Still problem when calling MSVC lib's
+  like fprintf calls fputc.  Added complexity that stdout now is _iob[1].
+
+23/Apr/98
+  Changed fetch and store to work on 32bit if INT32 is #defined.
+  No sign extension on word fetches though and also more serious
+  bugs ...
+
+27/Apr/98
+  So bug-free that a printf should be handy to debug the rest. // (C++) comments
+  added (always enabled, no switch)
+
+28/Apr/98
+  Beginning with libraries, eliminating implicit 'int = 16 bits' assumptions
+  in the frontend.
+
+...
+05/May/98
+  Numerous bugs in compiler and libraries...  Problem with INT 21H in libraries.
+
+06/May/98
+  Gave up trying to use MSDOS-personality under NT (as well as POSIX).  Have done
+  some dirty coding to use MS's own clib instead.  Got fputc to work.  Next
+  problem is to get correct alignment on data.
+
+08/May/98
+  Added -Ddefine to command-line args.  Problem with fetching parameters in
+  fprintf, 'stacklepra'.
+
+10/May/98
+  puts and fputs working
+
+25/May/98
+  Lots of things, but now it can compile itself.
+
+10/Nov/98
+  Nobody seems to be using/having Microsoft MASM assembler, so let us give
+  NASM a try.  NASM v0.98 should have been out by now but v0.97 will do.
+
+16/Nov/98
+  NASM-port can now compile itself, changed version to v3.1.
+------------------------------------------------------------------------------
+September 2003
+  Began Linux port
+    * Use GCC to compile, so alter the cc.h file to match the compiler
+      defines. Fake _MSC_VER for now.
+    * GCC choked on the inline() function; name changed to zinline()
+    * Commented out call to dump_debug() in cc4.c
+    * Newlines stripped out
+    * .ASM extension is now lowercase .asm
+    * Names are not preceeded by an _ anymore (for GCC compatibility)
+    * Some library functions still need to be fixed
+
+   I now have a 'link' script to take care of making the ELF object
+   file. You need to have a C library and 'ld', but the rest of the
+   files needed are in the lib/ subdirectory. I have no source code for
+   them, they are taken from GCC.
+
+   For now you can compile simple things by doing:
+
+   bash# scp hello.c
+   bash# nasm -f elf hello.asm
+   bash# ./link hello
+   bash# ./hello
+   Hello, World!
+   bash#
+
+September 22, 2003
+   Released 0.1.0 of Simple C compiler today. Since then I made these
+   changes:
+
+   Reformatted as K&R style source. This can be changed if anyone wants
+   a different formatting.
+
+   New script: cc
+               Compiles source code
+               Assembles resulting code
+               Links automatically
+               Removes intermediate files
+
+   I'm beginning some work to clean up the source code. It's not
+   massivly flawed, but I want to fix some pointer issues and make it
+   easier to extend later on.
+
+   I also plan to work on a linker so I won't have to use 'ld' or any of
+   these irritating .o files from GCC. It's time to remove its last
+   dependencies from GCC when compiling.
+
+   INT is always 32 bit now; you can't select a 16 bit int size
+   anymore. This *shouldn't* break anything since INT's were defined
+   that way before. It just cleans up several functions.
+
+September 23, 2003
+
+   No longer needs the crt??.o files from GCC to work. There is a
+   smaller, simpler replacement (init.o) now. This appears to generate
+   smaller applications as well. I still need to port init.o to NASM. It
+   currently uses 'as'
+
+   Renamed scripts, reorganized directory tree, install script.
+   Now do a './build; ./install' to compile and install it. Then you can
+   use 'sc' to build a program. Don't include an extension!
+
+   I'm beginning a fork of LIBC from the asmutils. This will be
+   reimplemented in C whenever feasible, but should allow Simple C to
+   compile more programs.
+
+   Found a bug with local labels (number:  -- should be _number:)
+
+September 24, 2003
+
+   Fixed handling of labels, conditionals, and more. Cleanups to the
+   default stdio.h as well. It can now compile itself, though some
+   problems remain. As soon as I can get it to compile itself properly,
+   I'll release it as 0.2.0
+
+   0.1.5 will be released today or tomorrow.
+
+   The Simple LIBC (forked from asmutils) is being cleaned up. We can
+   already link with it and have working applications. Besides, it's
+   just the basics in 15k, nothing fancy like GLIBC or even Dietlibc.
+
+August 25, 2005
+
+   Now has a makefile in place of the build and install scripts. Minor
+   reorganizations to the codebase have taken place.  (0.1.6)
+
+August 26, 2005
+
+   Began migration to fasm  (0.1.7)
+
+August 27, 2005
+
+   FASM support should be ok, but not fully tested yet (0.1.8)
+

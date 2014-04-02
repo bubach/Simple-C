@@ -1,0 +1,39 @@
+# -------------------------------------------
+# Simple C - Release 0.1.1
+# Compile, assemble, link wrapper script
+# -------------------------------------------
+if [ $1 ]; then
+   scc $1.c
+   nasm -f elf $1.asm
+fi
+if [ $2 ]; then
+   scc $2.c
+   nasm -f elf $2.asm
+fi
+if [ $3 ]; then
+   scc $3.c
+   nasm -f elf $3.asm
+fi
+if [ $4 ]; then
+   scc $4.c
+   nasm -f elf $4.asm
+fi
+if [ $5 ]; then
+   scc $5.c
+   nasm -f elf $5.asm
+fi
+
+if [ $5 ]; then
+   sld $1.o $2.o $3.o $4.o $5.o
+elif [ $4 ]; then
+   sld $1.o $2.o $3.o $4.o
+elif [ $3 ]; then
+   sld $1.o $2.o $3.o
+elif [ $2 ]; then
+   sld $1.o $2.o
+elif [ $1 ]; then
+   sld $1.o
+fi
+
+rm *.o *.asm
+mv a.out $1

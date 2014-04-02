@@ -1,0 +1,2 @@
+ld -dynamic-linker /lib/ld-linux.so.2 /usr/share/scc/lib/init.o -ldl $1 $2 $3 $4 $5
+

@@ -1,0 +1,64 @@
+Simple C Compiler, Release 0.1.6
+----------------------------------------------------------------
+Simple C is a portable C compiler based on Small C/386. It is 
+designed to run on Linux, but it should be usable on any Unix-
+like operating system for the x86 with minimal effort.
+
+This compiler generates assembly code for NASM. It also requires
+the 'ld' tool from the GNU project (or an equivilent) to create
+runnable applications.
+
+As Simple C is based on Small C, the conditions of the original
+copyright apply to it. Essentially the only condition is that 
+you can't distribute this commercially without permission from 
+J. Hendrix. See the end of this file for more details on this.
+
+Getting started is fairly simple. Gunzip and detar the sources, 
+then run "make default install". To compile an application, use 
+the 'cc' script and wait a few seconds. Good luck and happy 
+coding!
+
+------------------------------------------------------------------------------
+
+               ------- Small C User Registration (8-6-88) ---------
+          
+          The  Small-C  package  is copyrighted material; all rights are
+          reserved. You may use it as you please, except  that  you  may
+          not  sell  copies  without a signed agreement from the author.
+          You are encouraged, however, to distribute  copies  freely  as
+          long as you do not charge for the service. You must retain all
+          copyright  notices.  Programs developed with this compiler and
+          containing object modules from its library may be  distributed
+          commercially  without any royalty obligation. However, NO PART
+          of this package -- whether executable, object,  or  source  --
+          can  be included in a product which is sold for profit without
+          prior written permission from the author.
+          
+          This software carries no warranty, either written or  implied,
+          regarding  its  performance  or  suitability to any particular
+          task. Neither the  author  nor  the  distributor  accepts  any
+          responsibility for losses which might derive from its use.
+          
+          Any  correspondence  requiring  a  reply  must include a large
+          self-addressed, stamped envelope.
+          
+              NAME: __________________________________ DATE: ___________
+                                         
+           ADDRESS: ____________________________________________________
+                                         
+                    ____________________________________________________
+                                         
+                    ____________________________________________________
+                                         
+          COMPUTER: __________________________________ OP SYS: _________
+                                         
+            I RECEIVED MY COPY OF SMALL-C FROM: ______________________
+          
+          
+          
+                                     Mail to:
+
+                                 James E. Hendrix
+                                     Box 1435
+                                Oxford, MS  38655
+                                      U.S.A.
