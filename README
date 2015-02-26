@@ -4,7 +4,7 @@ Simple C is a portable C compiler based on Small C/386. It is
 designed to run on Linux, but it should be usable on any Unix-
 like operating system for the x86 with minimal effort.
 
-This compiler generates assembly code for NASM. It also requires
+This compiler generates assembly code for NASM/FASM. It also requires
 the 'ld' tool from the GNU project (or an equivilent) to create
 runnable applications.
 
